@@ -1,0 +1,41 @@
+-- Create Table --
+
+Create Table legality(
+  id int primary key,
+  lastName varchar(100) not null,
+  firstName varchar(100) not null,
+  age int not null,
+  agelevel varchar(50) not null,
+),
+
+insert into legality(id, lastName, firstName, age, agelevel) values
+  (1, 'Domanico', 'Ed', 16, 'minor')
+  (2, 'Domanico', 'Ed2', 17, 'adult')
+  (3, 'Domanico', 'Ed3', 18, 'adult')
+  (4, 'Domanico', 'Ed4', 19, 'adult')
+  (5, 'Domanico', 'Ed5', 120, 'unknown')
+  (6, 'Domanico', 'Ed6', 21, 'adult')
+
+select * from legality
+
+begin
+  declare @new_fullName as varchar(150);
+  declare @new_age int;
+  declare @new_agelevel as varchar(50);
+  declare @new_id as int;
+
+  declare @countrows int = (select count(id) from legality)
+
+  begin
+    select @new_age = age from legality where id = @counter
+
+    if @new_age >= 1 and @new_age <= 17
+      begin
+        update legality set agelevel = 'minor' where id = @counter
+        select @new_id = id, @new_fullName = firstName + ' ' + lastName,
+        @new_age = age, @new_agelevel = agelevel from legality where id = @counter
+        print 'Id: ' + cast(new_id as varchar(10)) + ' | Name: ' + @new_fullName + ' | Age: ' + @new_age as varchar(100) + ' | Age level: ' + @new_agelevel
+      end
+      set @counter = @counter +1
+  end
+end
