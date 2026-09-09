@@ -1,8 +1,3 @@
--- Drop table if it already exists to start fresh
-IF OBJECT_ID('Employees_Tbl', 'U') IS NOT NULL
-    DROP TABLE Employees_Tbl;
-GO
-
 -- Create Table directly in the default sandbox database
 CREATE TABLE Employees_Tbl (
     Id INT PRIMARY KEY,
@@ -12,7 +7,6 @@ CREATE TABLE Employees_Tbl (
     Department VARCHAR(50),
     Status VARCHAR(50) DEFAULT 'Pending'
 );
-GO
 
 -- Insert Data
 INSERT INTO Employees_Tbl (Id, LastName, FirstName, YearsOfService, Department, Status) VALUES
@@ -26,4 +20,3 @@ INSERT INTO Employees_Tbl (Id, LastName, FirstName, YearsOfService, Department, 
 (8, 'Flores', 'Beatrice', 0, 'Marketing', 'Pending'),
 (9, 'Navarro', 'Kevin', 9, 'IT', 'Pending'),
 (10, 'Castillo', 'Elena', 3, 'HR', 'Pending');
-GO
