@@ -1,11 +1,9 @@
--- Create Database
-CREATE DATABASE DomanicoLab1;
+-- Drop table if it already exists to start fresh
+IF OBJECT_ID('Employees_Tbl', 'U') IS NOT NULL
+    DROP TABLE Employees_Tbl;
 GO
 
-USE DomanicoLab1;
-GO
-
--- Create Table
+-- Create Table directly in the default sandbox database
 CREATE TABLE Employees_Tbl (
     Id INT PRIMARY KEY,
     LastName VARCHAR(50),
@@ -16,7 +14,7 @@ CREATE TABLE Employees_Tbl (
 );
 GO
 
--- Insert Data based on the provided table
+-- Insert Data
 INSERT INTO Employees_Tbl (Id, LastName, FirstName, YearsOfService, Department, Status) VALUES
 (1, 'Reyes', 'Christian', 1, 'IT', 'Pending'),
 (2, 'Mendoza', 'Sarah', 4, 'HR', 'Pending'),
@@ -29,6 +27,3 @@ INSERT INTO Employees_Tbl (Id, LastName, FirstName, YearsOfService, Department, 
 (9, 'Navarro', 'Kevin', 9, 'IT', 'Pending'),
 (10, 'Castillo', 'Elena', 3, 'HR', 'Pending');
 GO
-
-
-
