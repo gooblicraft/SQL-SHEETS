@@ -1,0 +1,43 @@
+USE DomanicoLab1;
+GO
+
+DECLARE @Id INT;
+DECLARE @LastName VARCHAR(50);
+DECLARE @FirstName VARCHAR(50);
+DECLARE @YearsOfService INT;
+DECLARE @Status VARCHAR(50);
+
+-- Declare Cursor to fetch records sequentially
+DECLARE emp_cursor CURSOR FOR
+SELECT Id, LastName, FirstName, YearsOfService FROM Employees_Tbl;
+
+OPEN emp_cursor;
+FETCH NEXT FROM emp_cursor INTO @Id, @LastName, @FirstName, @YearsOfService;
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    -- Evaluate YearsOfService using CASE logic and UPPER() function for uppercase formatting
+    SET @Status = UPPER(
+        CASE 
+            WHEN @YearsOfService BETWEEN 1 AND 2 THEN 'Trainee'
+            WHEN @YearsOfService BETWEEN 3 AND 5 THEN 'Junior'
+            WHEN @YearsOfService BETWEEN 6 AND 10 THEN 'Senior'
+            WHEN @YearsOfService BETWEEN 11 AND 20 THEN 'Veteran'
+            ELSE 'Unassigned'
+        END
+    );
+
+    -- Update the record in the table
+    UPDATE Employees_Tbl
+    SET Status = @Status
+    WHERE Id = @Id;
+
+    -- Print full name and updated status (in uppercase as required)
+    PRINT 'Employee: ' + @FirstName + ' ' + @LastName + ' | Status: ' + @Status;
+
+    FETCH NEXT FROM emp_cursor INTO @Id, @LastName, @FirstName, @YearsOfService;
+END
+
+CLOSE emp_cursor;
+DEALLOCATE emp_cursor;
+GO
