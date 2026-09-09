@@ -1,21 +1,19 @@
-USE DomanicoLab1;
-GO
-
-DECLARE @Id INT;
-DECLARE @LastName VARCHAR(50);
+DECLARE @Id INT = 1;
 DECLARE @FirstName VARCHAR(50);
+DECLARE @LastName VARCHAR(50);
 DECLARE @YearsOfService INT;
 DECLARE @Status VARCHAR(50);
 
--- Declare Cursor to fetch records sequentially
-DECLARE emp_cursor CURSOR FOR
-SELECT Id, LastName, FirstName, YearsOfService FROM Employees_Tbl;
-
-OPEN emp_cursor;
-FETCH NEXT FROM emp_cursor INTO @Id, @LastName, @FirstName, @YearsOfService;
-
-WHILE @@FETCH_STATUS = 0
+-- Loop through IDs 1 to 10 sequentially
+WHILE @Id <= 10
 BEGIN
+    -- Fetch data for the current ID
+    SELECT @FirstName = FirstName, 
+           @LastName = LastName, 
+           @YearsOfService = YearsOfService 
+    FROM Employees_Tbl 
+    WHERE Id = @Id;
+
     -- Evaluate YearsOfService using IF-ELSE logic
     IF @YearsOfService BETWEEN 1 AND 2
         SET @Status = 'trainee';
@@ -28,18 +26,14 @@ BEGIN
     ELSE
         SET @Status = 'unassigned';
 
-    -- Update the record in the table
+    -- Update the record
     UPDATE Employees_Tbl
     SET Status = @Status
     WHERE Id = @Id;
 
-    -- Print full name and updated status (in lowercase as required)
+    -- Print full name and lowercase status
     PRINT 'Employee: ' + @FirstName + ' ' + @LastName + ' | Status: ' + @Status;
 
-    FETCH NEXT FROM emp_cursor INTO @Id, @LastName, @FirstName, @YearsOfService;
+    -- Move to the next ID
+    SET @Id = @Id + 1;
 END
-
-CLOSE emp_cursor;
-DEALLOCATE emp_cursor;
-GO
-
