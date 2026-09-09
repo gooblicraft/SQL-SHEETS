@@ -1,0 +1,34 @@
+-- Create Database
+CREATE DATABASE DomanicoLab1;
+GO
+
+USE DomanicoLab1;
+GO
+
+-- Create Table
+CREATE TABLE Employees_Tbl (
+    Id INT PRIMARY KEY,
+    LastName VARCHAR(50),
+    FirstName VARCHAR(50),
+    YearsOfService INT,
+    Department VARCHAR(50),
+    Status VARCHAR(50) DEFAULT 'Pending'
+);
+GO
+
+-- Insert Data based on the provided table
+INSERT INTO Employees_Tbl (Id, LastName, FirstName, YearsOfService, Department, Status) VALUES
+(1, 'Reyes', 'Christian', 1, 'IT', 'Pending'),
+(2, 'Mendoza', 'Sarah', 4, 'HR', 'Pending'),
+(3, 'Cruz', 'David', 8, 'Finance', 'Pending'),
+(4, 'Garcia', 'Maria', 12, 'Marketing', 'Pending'),
+(5, 'Bautista', 'John', 2, 'IT', 'Pending'),
+(6, 'Aquino', 'Angela', 6, 'HR', 'Pending'),
+(7, 'Torres', 'Michael', 15, 'Finance', 'Pending'),
+(8, 'Flores', 'Beatrice', 0, 'Marketing', 'Pending'),
+(9, 'Navarro', 'Kevin', 9, 'IT', 'Pending'),
+(10, 'Castillo', 'Elena', 3, 'HR', 'Pending');
+GO
+
+
+
